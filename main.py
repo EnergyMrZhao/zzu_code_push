@@ -19,7 +19,7 @@ def getPtopid():
     resp.encoding = resp.apparent_encoding
     respText = resp.text
     if (respText.find("验证码") != -1):
-        print("出现验证码，请稍后再试！")
+        sendMsg("出现验证码，请稍后再试！")
         exit()
     indexStartPtopid = respText.find("ptopid")
     indexEndSid = respText.find("\"}}")
