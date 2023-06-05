@@ -38,6 +38,8 @@ def sendMsg(codeSrc):
     requests.post(url="http://www.pushplus.plus/send/", data=data)
 
 if __name__ == '__main__':
+    if(os.path.exists("ptopid.txt")):
+        getPtopid()
     with open("ptopid.txt", "r") as f:
         respTextSub = f.read()
         if (respTextSub == ""):
