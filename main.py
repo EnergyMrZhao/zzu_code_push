@@ -8,6 +8,13 @@ headers = {
     "Accept-Language": "zh-CN,zh;q=0.8"
 }
 
+def sendMsg(codeSrc):
+    data = {
+        "token": "8906471ad908426db7f4e17d229bf46a",
+        "title": "通行码",
+        "content": codeSrc,
+    }
+    requests.post(url="http://www.pushplus.plus/send/", data=data)
 
 def getPtopid():
     userData = {
@@ -29,13 +36,7 @@ def getPtopid():
         f.write(respTextSub)
         f.close()
 
-def sendMsg(codeSrc):
-    data = {
-        "token": "8906471ad908426db7f4e17d229bf46a",
-        "title": "通行码",
-        "content": codeSrc,
-    }
-    requests.post(url="http://www.pushplus.plus/send/", data=data)
+
 
 if __name__ == '__main__':
     if(os.path.exists("ptopid.txt")):
