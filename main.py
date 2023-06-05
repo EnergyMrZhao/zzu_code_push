@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import os
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36",
@@ -8,13 +9,6 @@ headers = {
     "Accept-Language": "zh-CN,zh;q=0.8"
 }
 
-def sendMsg(codeSrc):
-    data = {
-        "token": "8906471ad908426db7f4e17d229bf46a",
-        "title": "通行码",
-        "content": codeSrc,
-    }
-    requests.post(url="http://www.pushplus.plus/send/", data=data)
 
 def getPtopid():
     userData = {
@@ -26,7 +20,7 @@ def getPtopid():
     resp.encoding = resp.apparent_encoding
     respText = resp.text
     if (respText.find("验证码") != -1):
-        sendMsg("出现验证码，请稍后再试！")
+        sendMsg("出现验证码，稍后再试！")
         exit()
     indexStartPtopid = respText.find("ptopid")
     indexEndSid = respText.find("\"}}")
@@ -36,10 +30,16 @@ def getPtopid():
         f.write(respTextSub)
         f.close()
 
-
+def sendMsg(codeSrc):
+    data = {
+        "token": "8906471ad908426db7f4e17d229bf46a",
+        "title": "通行码",
+        "content": codeSrc,
+    }
+    requests.post(url="http://www.pushplus.plus/send/", data=data)
 
 if __name__ == '__main__':
-    if(os.path.exists("ptopid.txt")):
+    if(~os.path.exists("ptopid.txt")):
         getPtopid()
     with open("ptopid.txt", "r") as f:
         respTextSub = f.read()
